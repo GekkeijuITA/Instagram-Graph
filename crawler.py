@@ -65,7 +65,7 @@ def followees_list_multithread(username, current_depth, max_depth, sleep_time):
     return follow_list
 
 # Imposta i parametri
-max_depth = 2
+max_depth = 1
 sleep_time = 2  # Tempo di attesa tra le richieste in secondi
 profile = il.Profile.from_username(L.context, "lore.vacca03")
 
