@@ -9,7 +9,9 @@ import requests
 class InstagramCrawler:
     def __init__(self, username, password, sessionfile, URI, AUTH):
         self.gateway = ApiGateway("https://www.instagram.com") 
-        self.L = il.Instaloader(session=requests.Session().mount("https://www.instagram.com", self.gateway))
+        self.session = requests.Session()
+        self.session.mount("https://www.instagram.com", self.gateway)
+        self.L = il.Instaloader()
         self.username = username
         self.password = password
         self.sessionfile = sessionfile
@@ -18,8 +20,9 @@ class InstagramCrawler:
         
     def _login(self):
         try:
-            #self.L.load_session_from_file(self.username, self.sessionfile)
-            self.L.login(self.username, self.password)
+            self.L.load_session_from_file(self.username, self.sessionfile)
+            #self.L.login(self.username, self.password)
+            self.L.context._session = self.session
         except Exception as e:
             print(f"Errore durante il caricamento della sessione: {e}")
             exit(1)
